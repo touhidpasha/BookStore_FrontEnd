@@ -16,7 +16,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 // Import our top-level component.
-import App from 'components/App'
+import App from '../src/pages/App'
 
 // Mount our app.
 ReactDOM.render(
