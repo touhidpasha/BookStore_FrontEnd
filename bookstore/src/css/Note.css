@@ -1,0 +1,38 @@
+Card{
+    /* padding: 0.5em; */
+    color: aqua;
+}
+/* .card{
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+} */
+   
+
+.icons{
+    display: none;
+    /* content-visibility: 40px; */
+    /* height:60px; */
+    
+}
+
+.card:hover .icons{
+
+    display:flex;
+    /* flex-flow: wrap; */
+    justify-content: space-evenly;
+   
+}
+.card:hover{
+    background-color:rgb(248, 245, 245);
+}
+.parent-icons{
+    height:20px;
+}
+#edit-note{
+    display:flex;
+    flex-flow: column
+}
+.content{
+    font-size:40px;
+}

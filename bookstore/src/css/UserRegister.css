@@ -1,0 +1,74 @@
+#form{
+    width: 40%;
+    height: 600px;
+    margin-top:7%;
+    /* margin-bottom: 10%; */
+    margin-left: 35%;
+    margin-right: 35%;
+    display: flex;
+    flex-direction: row-reverse;
+    /* border-width: 0.5px black; */
+    border-style: ridge;
+}
+#col{
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+#row{
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: ; */
+    width: 100%;
+    margin: 5px 5px 5px 10px;
+    align-items: stretch;
+    font-size: 36px;
+}
+.hint{
+    font-size: 6px;
+    font-weight: 2x;
+}
+/* Button{
+    float: right;
+    margin-right: 200px;
+} */
+#F{color:#FF0000;}
+#U{color:#66CC66;}
+#N{color:#FF9966;}
+#D{color:#7c106e;}
+#O{color:#2600ff;}
+#N{color:#63EC66;}
+#OO{color:#FBB966;}
+#T{color:#D00006;}
+#E{color:#66c9f0;}
+#S{color:#667ff0;}
+
+#checkBox{
+    font-size: 14px;
+    font-weight: lighter;
+}
+.textField{
+    margin:5px 5px 5px 5px;
+    padding:5px 5px 5px 5px;
+    margin-left: 10px;
+    /* height: 200px */
+}
+img{
+    height:400px
+}
+#row-button{
+display: flex;
+/* flex-wrap: wrap; */
+justify-content: space-around;
+}
+@media screen and (max-width: 1600px){
+    img{
+
+        visibility: hidden;
+    }
+    
+}
