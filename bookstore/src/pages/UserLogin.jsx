@@ -41,16 +41,16 @@ export default function UserLogin(props) {
             <div id="col">
                 <div id="row" >
                     <Typography fontSize="30px">
-                        <span id="F"> F</span>
-                        <span id="U">U</span>
-                        <span id="N">N</span>
-                        <span id="D">D</span>
-                        <span id="O">O</span>
-                        <span id="N">N</span>
+                        <span id="F"> B</span>
+                        <span id="U">O</span>
+                        <span id="N">O</span>
+                        <span id="D">K</span>
+                        <span id="O">S</span>
+                        <span id="N">T</span>
                         <span id="OO">O</span>
-                        <span id="T">T</span>
+                        <span id="T">R</span>
                         <span id="E">E</span>
-                        <span id="S">S</span> <br></br>login</Typography>
+                         <br></br>login</Typography>
                     <br></br>
 
                 </div>

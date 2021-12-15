@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React ,{ useState, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,6 +17,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {Link } from 'react-router-dom'
 
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from 'redux'
@@ -76,7 +77,7 @@ export default function Header() {
 
   const handleSearchChange =async  (event) => {
     console.log("search "+event.target.value);
-    const res = await ProductHelper.getAllProducts({ "token": (localStorage.getItem("token")) })
+    const res = await ProductHelper.getAllProducts({ "index": 0, "sortType": "" })
     // console.log(JSON.stringify(res));
       setBooks(res.data, event.target.value)
   }
@@ -180,13 +181,22 @@ export default function Header() {
     </Menu>
   );
 
+//   useEffect(async () => {
+//     var res = await ProductHelper.getAllCartItems({ "token": localStorage.getItem("token") })
+//     console.log("cart items " + JSON.stringify(res));
+//     setCartItems(res)
+
+// }, [])
   
+// const [cartItems, setCartItems] = useState()
+
   return (
     // <div style={{background:"red"}}>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" style={{ background: '#A03037' }}>
           <Toolbar>
-            <MenuBookIcon sx={{paddingTop: '10px' ,paddingLeft: '250px' ,width: '31px', height: '24px'}}/>
+            <MenuBookIcon sx={{paddingTop: '10px' ,paddingLeft: '170px' ,width: '65px', height: '40px'}}/>
+            
             <Typography
               variant="h6"
               noWrap
@@ -205,7 +215,7 @@ export default function Header() {
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-
+            
             <Typography
               variant="h6"
               noWrap
@@ -215,9 +225,9 @@ export default function Header() {
               cart
             </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit" component={Link} to={"/order"}>
                 <Badge badgeContent={0} color="error">
-                  <ShoppingCartIcon sx={{paddingRight:"190px"}} />
+                  <ShoppingCartIcon sx={{paddingRight:"160px",height:"40px",width:"55px"}}  />
                 </Badge>
               </IconButton>
 

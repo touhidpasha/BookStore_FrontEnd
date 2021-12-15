@@ -20,12 +20,22 @@ const booksReducers = (state = initialState, action) => {
             return state
     }
 }
+const cartsReducers = (state = initialState, action) => {
+    switch (action.type) {
+        case "setCarts":
+                return { ...state, "data": [...action.payload]}//.slice(action.index*12, (action.index*12) +12)}
+
+       default:
+           return state
+    }
+}
 
 
 
 // export default reducer;
 const reducers = combineReducers({
-    book: booksReducers
+    book: booksReducers,
+    cart: cartsReducers
 })
 
 export default reducers

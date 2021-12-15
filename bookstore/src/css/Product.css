@@ -11,3 +11,12 @@
     justify-content: space-evenly;
     /* align-items:space-start; */
 }
+.product:hover +.description{
+    display: contents;
+}
+.product:hover{
+    display: none;
+}
+.description{
+    display: none;
+}

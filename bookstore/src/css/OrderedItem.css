@@ -1,0 +1,8 @@
+.main{
+    display: flex;
+    /* flex-direction: row; */
+    /* align-items: center; */
+    justify-content: space-between;
+    row-gap: 50px;
+    padding-top: 50px;
+}

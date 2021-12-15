@@ -10,6 +10,17 @@ export const setBooks = (books,searchString,index) => {
         });
     }
 }
+export const setCarts = (carts) => {
+    return (dispatch) => {
+        dispatch({
+            type: "setCarts",
+            payload: carts,
+            // searchString:searchString,
+            // index:index
+        });
+    }
+}
+
 
 
 

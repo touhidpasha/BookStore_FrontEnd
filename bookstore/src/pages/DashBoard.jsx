@@ -16,18 +16,22 @@ import Product from '../components/Product';
 import Header from '../components/Header';
 import * as actionCreators from "../state/action-creators/servent"
 import "../css/DashBoard.css"  //servent or methods
+import Order from '../components/Order';
 
 export default function Dashboard() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { setBooks } = bindActionCreators(actionCreators, dispatch);
+    const { setBooks,setCarts } = bindActionCreators(actionCreators, dispatch);
     const [page, setPage] = useState(1);
     useEffect(async () => {
         navigate(localStorage.getItem("token") === null ? "/login" : "/dashboard")
-        var res = await ProductHelper.getAllProducts({ "index": 4,"sortType":sortType })
+        var res = await ProductHelper.getAllProducts({ "index": 4, "sortType": sortType })
         setBooks(res.data, "")
-         res = await ProductHelper.getAllProducts({ "index": page-1,"sortType":sortType })
+        res = await ProductHelper.getAllProducts({ "index": page - 1, "sortType": sortType })
         setBooks(res.data, "")
+        var res = await ProductHelper.getAllCartItems({ "token": localStorage.getItem("token") })
+        console.log("in dash from BE "+JSON.stringify(res));
+        setCarts(res.data)
     }, [page])
 
     const bookState = useSelector((state) => state.book);//getting from redux
@@ -42,43 +46,58 @@ export default function Dashboard() {
         // console.log(sortType);
     };
 
+    const [order, setOrder] = useState(false)
+    const [book, setBook] = useState()
+    const handleOrderPlace = (order) => {
+        setOrder(order)
+    }
+    const handleOrderedBook = (book) => {
+        setBook(book)
+    }
+
     return (
         <>
             <Header></Header>
-            <div class="mainHint">
-                <div class="hint">
-                    <Typography gutterBottom variant="h4" component="div" sx={{ fontSize: "25px" }}>
-                        Books
-                    </Typography>
-                    <Typography variant="caption" sx={{ paddingTop: "10px", fontColor: "#9D9D9D" }}>(52 items)</Typography>
+            {!order ? <>
+                <div class="mainHint">
+                    <div class="hint">
+                        <Typography gutterBottom variant="h4" component="div" sx={{ fontSize: "25px" }}>
+                            Books
+                        </Typography>
+                        <Typography variant="caption" sx={{ paddingTop: "10px", fontColor: "#9D9D9D" }}>(52 items)</Typography>
+                    </div>
+                    <div class="sort">
+                        <Box >
+                            <FormControl fullWidth>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={sortType}
+                                    label={sortType}
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={'high'}>price:high to low</MenuItem>
+                                    <MenuItem value={'low'}>price:low to high</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
                 </div>
-                <div class="sort">
-                    <Box >
-                        <FormControl fullWidth>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={sortType}
-                               label={sortType}
-                                onChange={handleChange}
-                            >
-                                <MenuItem value={'high'}>price:high to low</MenuItem>
-                                <MenuItem value={'low'}>price:low to high</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
+                <div class="books">
+                    {
+                        [...bookState['data']].map(book => {
+                            // setBook(book)
+                            return (<Product onOrderPlace={handleOrderPlace} getBookFromChild={handleOrderedBook} book={book}></Product>)
+                        })
+                    }
                 </div>
-            </div>
-            <div class="books">
-                {
-                    [...bookState['data']].map(book => {
-                        return (<Product book={book}></Product>)
-                    })
-                }
-            </div>
-            <div class="pagination">
-                <Pagination count={5} page={page} onChange={(event, value) => { setPage(value) }}></Pagination>
-            </div>
+                <div class="pagination">
+                    <Pagination count={5} page={page} onChange={(event, value) => { setPage(value) }}></Pagination>
+                </div>
+            </> :
+                <Order book={book}></Order>
+            }
         </>
     )
+
 }
