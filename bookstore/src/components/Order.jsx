@@ -85,7 +85,7 @@ export default function Order(props) {
                 </div>
                 <Paper elevation={2} sx={showDetails ? { width: '70%', height: '400px' } : { width: '70%', height: '40px' }} >
                     <div class="main2">
-                        <Typography>Customer Details</Typography>
+                    <Typography sx={{paddingLeft:"600px"}}>Customer Details</Typography>
                         {showDetails ? <>
                             <div class="grid">
                                 <TextField className="textField" type={'text'} sx={{ paddingRight: 2 }} placeholder="Name" label="Name" name="name" value={fValue.name} onChange={getFormValues} />

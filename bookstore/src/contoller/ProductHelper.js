@@ -51,5 +51,14 @@ class ProductHelper {
         const res=await API.post("address/updateAddress",info)
         console.log(res);
     }
+    placeOrder = async (info) => {
+        const res=await API.post("order/createOrder",info)
+        console.log("after order "+JSON.stringify(res));
+    }
+    getId= async (info)=> {
+        const res=await API.post("order/getId",info)
+        return res.data 
+
+    }
 }
 module.exports = new ProductHelper();

@@ -22,24 +22,24 @@ export default function Dashboard() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { setBooks,setCarts } = bindActionCreators(actionCreators, dispatch);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
+    const [sortType, setSortBy] = React.useState('asc');
+
     useEffect(async () => {
         navigate(localStorage.getItem("token") === null ? "/login" : "/dashboard")
-        var res = await ProductHelper.getAllProducts({ "index": 4, "sortType": sortType })
+        var res = await ProductHelper.getAllProducts({ "start":48,"end": 51, "sortType": sortType })
         setBooks(res.data, "")
-        res = await ProductHelper.getAllProducts({ "index": page - 1, "sortType": sortType })
+        res = await ProductHelper.getAllProducts({ "start":page*12,"end": page*12+12, "sortType": sortType })
         setBooks(res.data, "")
         var res = await ProductHelper.getAllCartItems({ "token": localStorage.getItem("token") })
         console.log("in dash from BE "+JSON.stringify(res));
         setCarts(res.data)
-    }, [page])
-
+    }, [page,sortType])
     const bookState = useSelector((state) => state.book);//getting from redux
     useEffect(() => {
         console.log("pagr value " + page);
     }, [page]
     )
-    const [sortType, setSortBy] = React.useState('high');
 
     const handleChange = (event) => {
         setSortBy(event.target.value);
@@ -76,8 +76,8 @@ export default function Dashboard() {
                                     label={sortType}
                                     onChange={handleChange}
                                 >
-                                    <MenuItem value={'high'}>price:high to low</MenuItem>
-                                    <MenuItem value={'low'}>price:low to high</MenuItem>
+                                    <MenuItem value={'asc'}>price:asc to desc</MenuItem>
+                                    <MenuItem value={'desc'}>price:desc to asc</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>

@@ -10,7 +10,7 @@ const booksReducers = (state = initialState, action) => {
             if (searchString == "")
                 return { ...state, "data": [...action.payload]}//.slice(action.index*12, (action.index*12) +12)}
             else {
-                console.log("in reducer "+ typeof(searchString));
+                // console.log("in reducer "+ searchString.toLoweCase());
                 return { ...state, "data": [...action.payload].filter(book => { return book.title.includes(searchString)}) }
 
             }

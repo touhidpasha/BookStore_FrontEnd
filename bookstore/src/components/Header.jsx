@@ -1,4 +1,4 @@
-import React ,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,7 +17,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from 'redux'
@@ -75,11 +75,15 @@ export default function Header() {
   //     setBooks(res.data, "")
   // }, [])
 
-  const handleSearchChange =async  (event) => {
-    console.log("search "+event.target.value);
-    const res = await ProductHelper.getAllProducts({ "index": 0, "sortType": "" })
+  const handleSearchChange = async (event) => {
+    console.log("search " + event.target.value);
+    var res;
+    if (event.target.value != "")
+      res = await ProductHelper.getAllProducts({ "start": 0, "end": 51, "sortType": "asc" })
+    else
+      res = await ProductHelper.getAllProducts({ "start": 0, "end": 12, "sortType": "asc" })
     // console.log(JSON.stringify(res));
-      setBooks(res.data, event.target.value)
+    setBooks(res.data, event.target.value)
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -105,7 +109,7 @@ export default function Header() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  
+
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -181,67 +185,67 @@ export default function Header() {
     </Menu>
   );
 
-//   useEffect(async () => {
-//     var res = await ProductHelper.getAllCartItems({ "token": localStorage.getItem("token") })
-//     console.log("cart items " + JSON.stringify(res));
-//     setCartItems(res)
+  //   useEffect(async () => {
+  //     var res = await ProductHelper.getAllCartItems({ "token": localStorage.getItem("token") })
+  //     console.log("cart items " + JSON.stringify(res));
+  //     setCartItems(res)
 
-// }, [])
-  
-// const [cartItems, setCartItems] = useState()
+  // }, [])
+
+  // const [cartItems, setCartItems] = useState()
 
   return (
     // <div style={{background:"red"}}>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{ background: '#A03037' }}>
-          <Toolbar>
-            <MenuBookIcon sx={{paddingTop: '10px' ,paddingLeft: '170px' ,width: '65px', height: '40px'}}/>
-            
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ fontSize: '20px',display: { xs: 'none', sm: 'block' },paddingTop: '6px' ,paddingLeft: '10px',paddingRight:"20px" ,width: '120px', height: '26px'}}
-            >
-              Bookstore
-            </Typography>
-            <Search sx={{paddingTop: '4px' ,paddingLeft: '6px' ,width: '990px', height: '33px'}} onChange={handleSearchChange}>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
-            <Box sx={{ flexGrow: 1 }} />
-            
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } ,fontSize:"14px"}}
-            >
-              cart
-            </Typography>
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton size="large" aria-label="show 4 new mails" color="inherit" component={Link} to={"/order"}>
-                <Badge badgeContent={0} color="error">
-                  <ShoppingCartIcon sx={{paddingRight:"160px",height:"40px",width:"55px"}}  />
-                </Badge>
-              </IconButton>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" style={{ background: '#A03037' }}>
+        <Toolbar>
+          <MenuBookIcon sx={{ paddingTop: '10px', paddingLeft: '170px', width: '65px', height: '40px' }} />
 
-            </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ fontSize: '20px', display: { xs: 'none', sm: 'block' }, paddingTop: '6px', paddingLeft: '10px', paddingRight: "20px", width: '120px', height: '26px' }}
+          >
+            Bookstore
+          </Typography>
+          <Search sx={{ paddingTop: '4px', paddingLeft: '6px', width: '990px', height: '33px' }} onChange={handleSearchChange}>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+          <Box sx={{ flexGrow: 1 }} />
 
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' }, fontSize: "14px" }}
+          >
+            cart
+          </Typography>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" component={Link} to={"/order"}>
+              <Badge badgeContent={0} color="error">
+                <ShoppingCartIcon sx={{ paddingRight: "160px", height: "40px", width: "55px" }} />
+              </Badge>
+            </IconButton>
+
+          </Box>
+
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
 
 
-            </Box>
-          </Toolbar>
-        </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
-      </Box>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
+    </Box>
     // </div>
   );
 }

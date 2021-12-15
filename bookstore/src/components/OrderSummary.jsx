@@ -27,6 +27,9 @@ export default function OrderSummary(props) {
     const navigate = useNavigate();
     const [book, setBook] = useState()
     const [numberOfCopies, setNumberOfCopies] = useState(1)
+    // const [OrderId, setOrderId] = useState(Math.random() * (9999- 999) + 999)
+    const [OrderId, setOrderId] = useState( Date.now())
+
     useEffect(async () => {
         console.log("from order" + JSON.stringify(props.book));
         setBook(await ProductHelper.getBookDetails({ "id": props.book.itemId }))
@@ -49,6 +52,11 @@ export default function OrderSummary(props) {
             setCarts(res.data)
         }
     }, [numberOfCopies])
+    const handleOrder=() => {
+        console.log("item ordered"+book._id);
+        ProductHelper.placeOrder({"orderNumber":OrderId,"token": localStorage.getItem("token"),"itemId":book._id,"numberOfCopies":numberOfCopies})
+        
+    }
     return (<>
         {(book == null) ? <></> :
             <Paper elevation={2} sx={props.showSummary ? { width: '1350px', height: '300px' } : {  width: '1350px', height: '30px' }} >
@@ -70,7 +78,9 @@ export default function OrderSummary(props) {
                                 RS.{book.price}
                             </Typography>
                         </div>
-                        <Button sx={{ height: "30px", marginTop: "70px" }} variant="contained" component={Link} to={"/orderedItem"}>CHECKOUT</Button>
+                        <Button sx={{ height: "30px", marginTop: "70px" }} variant="contained" component={Link} to={'/orderedItem'} onClick={handleOrder}>CHECKOUT</Button>
+                        {/* <Button sx={{ height: "30px", marginTop: "70px" }} variant="contained" onClick={handleOrder}>CHECKOUT</Button> */}
+
                     </div>
                 </>
                     : <></>}

@@ -13,8 +13,16 @@ import { Link } from 'react-router-dom'
 import '../css/OrderedItem.css'
 import image from "../assets/Group 4132.svg"
 import Header from './Header';
+import ProductHelper from '../contoller/ProductHelper'
 
 export default function OrderedItem(props) {
+    const [id,setId]=useState(null)
+    useEffect(async () => {
+        var data=await ProductHelper.getId({"token":localStorage.getItem("token")})
+        console.log("id "+JSON.stringify(data));
+        console.log("id is ->"+data[0].orderNumber);
+        setId(data[0].orderNumber)
+    })
     return (
         <>
             <Header />
@@ -24,7 +32,7 @@ export default function OrderedItem(props) {
                 <img src={image} alt="loading..." style={{ "width": '40%', "height": '300px', 'paddingBottom': "30px" }}></img>
                 <div>
                     <Typography>hurray!!! your order is confirmed the order </Typography>
-                    <Typography>id is #123456 save the order id </Typography>
+                    <Typography>id is {id} save the order id </Typography>
                     <Typography> for further communication..</Typography>
                 </div>
                 <TableContainer component={Paper}>
