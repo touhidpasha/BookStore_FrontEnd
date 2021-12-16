@@ -32,8 +32,6 @@ function AppRouter() {
           <Route path="/dashBoard" exact element={<DashBoard />} />
           <Route path="/order" exact element={<Order />} />
           <Route path="/orderedItem" exact element={<OrderedItem />} />
-          {/* <Route path="/header" exact element={<Header />} /> */}
-
         </Routes>
       </Router>
     </div>

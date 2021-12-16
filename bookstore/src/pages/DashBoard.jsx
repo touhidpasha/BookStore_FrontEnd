@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Pagination, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -32,18 +31,12 @@ export default function Dashboard() {
         res = await ProductHelper.getAllProducts({ "start":page*12,"end": page*12+12, "sortType": sortType })
         setBooks(res.data, "")
         var res = await ProductHelper.getAllCartItems({ "token": localStorage.getItem("token") })
-        console.log("in dash from BE "+JSON.stringify(res));
         setCarts(res.data)
     }, [page,sortType])
     const bookState = useSelector((state) => state.book);//getting from redux
-    useEffect(() => {
-        console.log("pagr value " + page);
-    }, [page]
-    )
-
+    
     const handleChange = (event) => {
         setSortBy(event.target.value);
-        // console.log(sortType);
     };
 
     const [order, setOrder] = useState(false)
@@ -99,5 +92,4 @@ export default function Dashboard() {
             }
         </>
     )
-
 }

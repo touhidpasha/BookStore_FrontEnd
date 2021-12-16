@@ -19,16 +19,12 @@ export default function OrderedItem(props) {
     const [id,setId]=useState(null)
     useEffect(async () => {
         var data=await ProductHelper.getId({"token":localStorage.getItem("token")})
-        console.log("id "+JSON.stringify(data));
-        console.log("id is ->"+data[0].orderNumber);
         setId(data[0].orderNumber)
     })
     return (
         <>
             <Header />
-
             <div class="main" >
-
                 <img src={image} alt="loading..." style={{ "width": '40%', "height": '300px', 'paddingBottom': "30px" }}></img>
                 <div>
                     <Typography>hurray!!! your order is confirmed the order </Typography>

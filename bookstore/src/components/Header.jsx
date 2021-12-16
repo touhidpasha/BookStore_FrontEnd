@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,12 +9,10 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom'
@@ -69,26 +67,17 @@ export default function Header() {
 
   const dispatch = useDispatch();
   const { setBooks } = bindActionCreators(actionCreators, dispatch);
-  // useEffect(async () => {
-  //     navigate(localStorage.getItem("token") === null ? "/login" : "/dashboard")
-  //     const res = await ProductHelper.getAllProducts({ "token": (localStorage.getItem("token")) })
-  //     setBooks(res.data, "")
-  // }, [])
-
   const handleSearchChange = async (event) => {
-    console.log("search " + event.target.value);
     var res;
     if (event.target.value != "")
       res = await ProductHelper.getAllProducts({ "start": 0, "end": 51, "sortType": "asc" })
     else
       res = await ProductHelper.getAllProducts({ "start": 0, "end": 12, "sortType": "asc" })
-    // console.log(JSON.stringify(res));
     setBooks(res.data, event.target.value)
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -104,11 +93,6 @@ export default function Header() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
 
 
   const menuId = 'primary-search-account-menu';
@@ -185,17 +169,7 @@ export default function Header() {
     </Menu>
   );
 
-  //   useEffect(async () => {
-  //     var res = await ProductHelper.getAllCartItems({ "token": localStorage.getItem("token") })
-  //     console.log("cart items " + JSON.stringify(res));
-  //     setCartItems(res)
-
-  // }, [])
-
-  // const [cartItems, setCartItems] = useState()
-
   return (
-    // <div style={{background:"red"}}>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: '#A03037' }}>
         <Toolbar>
@@ -219,7 +193,6 @@ export default function Header() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-
           <Typography
             variant="h6"
             noWrap
@@ -234,18 +207,13 @@ export default function Header() {
                 <ShoppingCartIcon sx={{ paddingRight: "160px", height: "40px", width: "55px" }} />
               </Badge>
             </IconButton>
-
           </Box>
-
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-
-
           </Box>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
     </Box>
-    // </div>
   );
 }

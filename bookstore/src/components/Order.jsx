@@ -38,7 +38,6 @@ export default function Order(props) {
     });
 
     useEffect(async () => {
-
         var address = await ProductHelper.getAddress({ "token": localStorage.getItem("token") })
         changeFormValues({
             ...fValue,
@@ -51,7 +50,6 @@ export default function Order(props) {
             ["landmark"]: [address.landmark],
             ["type"]: [address.type],
         })
-
     }, [])
 
     const getFormValues = (event) => {
@@ -59,21 +57,13 @@ export default function Order(props) {
             ...fValue,
             [event.target.name]: event.target.value
         })
-        console.log(fValue);
     }
-    // return(
-    //     <>
-    //     items
-    //     </>
-    // )
     const showDetailsHandler = (value) => {
         setShowDetails(value)
-       
     }
 
     const updateAddresses = async () => {
         ProductHelper.updateAddresses(fValue)
-
     }
     return (
         <>
